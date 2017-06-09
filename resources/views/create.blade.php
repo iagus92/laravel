@@ -7,13 +7,25 @@
             <div class="panel panel-default">
                 <div class="panel-heading">{{ trans('home.dashboard') }}</div>
 
-                {{ $errors->create }}
+                @if (count($errors) > 0)
+                    <!-- Form Error List -->
+                    <div class="alert alert-danger">
+                        <strong>Whoops! Something went wrong!</strong>
+                        <br><br>
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
 
                 <div class="panel-body">
                   <br>AÑADIR PRODUCTO</br>
-                  {{ Form::open(array('url' => 'add', 'method' => 'post')) }}
+                  {{ Form::open(array('url' => 'add', 'method' => 'post', 'files' => true)) }}
                   {{ Form::text('name') }}
                   {{ Form::text('price') }}
+                  {{ Form::file('image') }}
                   {{ Form::submit('Añadir') }}
                   {{ Form::close() }}
                 </div>
